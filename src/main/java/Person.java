@@ -1,3 +1,4 @@
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,5 +131,21 @@ public class Person {
             children.add(child);
         }
         parent.setChildren(children);
+    }
+
+    public void addPet(Person owner, Pet pet) {
+        List<Pet> pets = new ArrayList<>();
+        if (owner.getPets() != null) {
+            for (Pet p : owner.getPets()) {
+                pets.add(pet);
+            }
+        } else {
+            pets.add(pet);
+        }
+        owner.setPets(pets);
+    }
+
+    public void addSibling(Person parent, Person child) {
+
     }
 }
