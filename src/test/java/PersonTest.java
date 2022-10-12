@@ -8,33 +8,71 @@ import static org.junit.Assert.assertEquals;
 public class PersonTest {
 
     @Test
-    public void addChild() {
+    public void addParents() {
         //arrange
-        Person parent = new Person("Collin", "van", "Leeuwen", "Man", 29);
-        Person child = new Person("Junior", "van", "Leeuwen", "Man", 18);
-        List<Person> children = new ArrayList<>();
-        children.add(child);
+        Person collin = new Person("Collin", "van", "Leeuwen", "Male", 29);
+        Person monique = new Person("Monique", "Willems", "Female", 60);
+        Person etienne = new Person("Etienne", "Stevens",  "Male", 52);
+
+
+
         //act
-        parent.addChild(parent, child);
-        List<Person> kids = parent.getChildren();
+        collin.addParents(etienne, monique);
+
         //assert
-        assertEquals(children, kids);
-        assertEquals("Junior", parent.getChildren().get(0).getName());
-        assertEquals("van", parent.getChildren().get(0).getMiddleName());
+        assertEquals("Etienne", collin.getFather().getName());
+        assertEquals("Monique", collin.getMother().getName());
     }
 
     @Test
-    public void addPet() {
+    public void testAddChild() {
         //arrange
-        Person owner = new Person("Stevie", "Wonder", "Male", 45);
-        Pet cat = new Pet("Willie", 4, "Langharige boskat");
-        List<Pet> pets = new ArrayList<>();
-        pets.add(cat);
+        Person collin = new Person("Collin", "van", "Leeuwen", "Male", 29);
+        Person monique = new Person("Monique", "Willems", "Female", 60);
+
         //act
-        owner.addPet(owner, cat);
-        List<Pet> homePet = owner.getPets();
+        monique.addChild(collin);
+
         //assert
-        assertEquals(pets, homePet);
-        assertEquals("Willie", owner.getPets().get(0).getName());
+        assertEquals("Collin", monique.getChildren().get(0).getName());
+    }
+
+    @Test
+    public void testAddPet() {
+        //arrange
+        Person collin = new Person("Collin", "van", "Leeuwen", "Male", 29);
+        Pet hond = new Pet("Frank", 6, "Corgi");
+
+        //act
+        collin.addPet(hond);
+
+        //assert
+        assertEquals("Frank", collin.getPets().get(0).getName());
+    }
+
+    @Test
+    public void addSibling() {
+        //arrange
+        Person collin = new Person("Collin", "van", "Leeuwen", "Male", 29);
+        Person joelle = new Person("Joelle", "van", "Leeuwen", "Female", 35);
+
+        //act
+        collin.addSibling(joelle);
+
+        //assert
+        assertEquals("Joelle", collin.getSiblings().get(0).getName());
+    }
+
+    @Test
+    public void getGrandchildren() {
+        //arrange
+        Person monique = new Person("Monique", "Willems", "Female", 60);
+        Person collin = new Person("Collin", "van", "Leeuwen", "Male", 29);
+        Person stevie = new Person("Stevie", "van", "Leeuwen", "Male", 3);
+        monique.addChild(collin);
+        collin.addChild(stevie);
+        //act
+        monique.getGrandchildren();
+        //assert
     }
 }

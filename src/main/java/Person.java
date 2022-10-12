@@ -1,4 +1,3 @@
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +10,9 @@ public class Person {
     private int age;
     private Person mother;
     private Person father;
-    private List<Person> siblings;
-    private List<Person> children;
-    private List<Pet> pets;
+    private List<Person> siblings = new ArrayList<>();
+    private List<Person> children = new ArrayList<>();
+    private List<Pet> pets = new ArrayList<>();
 
     public Person() {
     }
@@ -113,39 +112,31 @@ public class Person {
         this.pets = pets;
     }
 
-    public void addParents(Person father, Person mother, Person child) {
-        child.setMother(mother);
-        child.setFather(father);
 
-        addChild(mother, child);
-        addChild(father, child);
+    public void addParents(Person father, Person mother) {
+        setMother(mother);
+        setFather(father);
     }
 
-    public void addChild(Person parent, Person child) {
-        List<Person> children = new ArrayList<>();
-        if (parent.getChildren()!= null) {
-            for (Person c : parent.getChildren()) {
-                children.add(child);
+    public void addChild(Person child) {
+        children.add(child);
+    }
+
+    public void addPet(Pet pet) {
+        pets.add(pet);
+    }
+
+    public void addSibling(Person sibling) {
+        siblings.add(sibling);
+    }
+
+
+    public void getGrandchildren(){
+        for (Person kid : getChildren()) {
+            for (Person grandchild : kid.getChildren()) {
+                System.out.println(grandchild.getName());
             }
-        } else {
-            children.add(child);
         }
-        parent.setChildren(children);
     }
 
-    public void addPet(Person owner, Pet pet) {
-        List<Pet> pets = new ArrayList<>();
-        if (owner.getPets() != null) {
-            for (Pet p : owner.getPets()) {
-                pets.add(pet);
-            }
-        } else {
-            pets.add(pet);
-        }
-        owner.setPets(pets);
-    }
-
-    public void addSibling(Person parent, Person child) {
-
-    }
 }
